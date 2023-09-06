@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="styles.css">
+    <link rel="icon" href="https://freepngimg.com/save/13548-earth-png/800x790" type="image/x-icon">
+    <title>Temperature Converter</title>
+</head>
+<body>
+    <div class="container">
+        <h1>Temperature Converter</h1>
+        <input type="number" id="temperature" placeholder="Enter temperature">
+        
+        <select id="fromUnit">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        
+        <select id="toUnit">
+            <option value="celsius">Celsius</option>
+            <option value="fahrenheit">Fahrenheit</option>
+            <option value="kelvin">Kelvin</option>
+        </select>
+        <div><button id="convertButton">Convert</button></div>
+       
+        
+        <div id="result"></div>
+    </div>
+    <script src="script.js"></script>
+</body>
+<script>document.getElementById("convertButton").addEventListener("click", function () {
+    const temperatureInput = parseFloat(document.getElementById("temperature").value);
+    const fromUnit = document.getElementById("fromUnit").value;
+    const toUnit = document.getElementById("toUnit").value;
+
+    if (!isNaN(temperatureInput)) {
+        let convertedTemperature;
+
+        if (fromUnit === "celsius") {
+            if (toUnit === "fahrenheit") {
+                convertedTemperature = (temperatureInput * 9/5) + 32;
+            } else if (toUnit === "kelvin") {
+                convertedTemperature = temperatureInput + 273.15;
+            } else {
+                convertedTemperature = temperatureInput;
+            }
+        } else if (fromUnit === "fahrenheit") {
+            if (toUnit === "celsius") {
+                convertedTemperature = (temperatureInput - 32) * 5/9;
+            } else if (toUnit === "kelvin") {
+                convertedTemperature = (temperatureInput - 32) * 5/9 + 273.15;
+            } else {
+                convertedTemperature = temperatureInput;
+            }
+        } else if (fromUnit === "kelvin") {
+            if (toUnit === "celsius") {
+                convertedTemperature = temperatureInput - 273.15;
+            } else if (toUnit === "fahrenheit") {
+                convertedTemperature = (temperatureInput - 273.15) * 9/5 + 32;
+            } else {
+                convertedTemperature = temperatureInput;
+            }
+        }
+
+        document.getElementById("result").innerHTML = `result: ${convertedTemperature.toFixed(2)} ${toUnit}`;
+    } else {
+        document.getElementById("result").innerHTML = "enter a valid number.";
+    }
+});
+</script>
+</html>
